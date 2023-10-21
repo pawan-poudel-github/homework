@@ -83,7 +83,7 @@ export const POST = async (
         user: true,
       },
     });
-    pusherServer.trigger(roomId, "newpost", assignmentWithUser);
+    await pusherServer.trigger(roomId, "newpost", assignmentWithUser);
     if (files && files.length > 0) {
       for (let i = 0; i < files.length; i++) {
         await db.assignmentFiles.create({
