@@ -10,8 +10,8 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/signin",
-    error: "/signin",
+    signIn: process.env.NEXTAUTH_URL!+"/signin",
+    error: process.env.NEXTAUTH_URL!+"/signin",
   },
   providers: [
     GoogleProvider({
