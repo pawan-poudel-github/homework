@@ -81,7 +81,7 @@ export const POST = async (
     return NextResponse.json(
       {
         success: true,
-        message: "Room deleted successfully.",
+        message: "Assignment deleted successfully.",
       },
       { status: 200 }
     );
