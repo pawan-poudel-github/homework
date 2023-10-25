@@ -3,6 +3,9 @@
 ## Manage Student Assignments with Ease
 
 The Homework App is a powerful tool to help you streamline the assignment management process for students and educators.
+<div align="center">
+  <img src="https://github.com/pawan-poudel-github/homework/assets/113958713/1508c4af-6664-46d0-bc05-787bb6905219" height=300 width=300 alt="App logo"/>
+</div>
 
 ### Technologies Used
 
