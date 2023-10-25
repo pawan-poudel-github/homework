@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="manifest" href="/manifest.json" />
+<meta name="google-site-verification" content="bRqRTz-O0zDpWLJIvjjckmVbgxMItCfiJNUICNe-GT0" />
       <body className={montserrat.className}>
         <Navbar />
         <EdgeStoreProvider>{children}</EdgeStoreProvider>
