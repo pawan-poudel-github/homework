@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { LogIn, Radio } from "lucide-react";
 import { notFound } from "next/navigation";
 import Room from "@/components/server/Room";
+import BackButton from "@/components/client/BackButton";
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const session = await getServerSession(authOptions);
@@ -29,6 +30,7 @@ const page = async ({ params }: { params: { id: string } }) => {
     joinedRoom.room.adminId == session?.user.id;
   return (
     <section className="container relative mt-24 pb-3 md:px-28">
+      <BackButton />
       <div
         className="flex justify-between px-4 py-1 h-40 items-end bg-cover bg-no-repeat rounded-lg bg-right bg-[--theme-color] relative"
         style={{

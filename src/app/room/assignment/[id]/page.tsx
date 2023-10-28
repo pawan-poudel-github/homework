@@ -10,6 +10,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import type { Metadata } from "next";
+import BackButton from "@/components/client/BackButton";
 
 export const metadata: Metadata = {
   title: "Assignment - Homework",
@@ -114,6 +115,7 @@ const page = async ({
     assignment.room.adminId == session?.user.id;
   return (
     <div className="container relative mt-24 md:px-28">
+      <BackButton />
       <div>
         <div className="flex items-start gap-x-4 w-full">
           <Image
