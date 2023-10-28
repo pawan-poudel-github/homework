@@ -5,10 +5,15 @@ import { authOptions } from "@/lib/authOptions";
 import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
 
-import { LogIn, Radio } from "lucide-react";
-import { notFound } from "next/navigation";
-import Room from "@/components/server/Room";
 import BackButton from "@/components/client/BackButton";
+import { LogIn, Radio } from "lucide-react";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Assignments",
+  description: "View new assignments.",
+};
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const session = await getServerSession(authOptions);
