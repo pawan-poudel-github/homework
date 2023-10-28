@@ -7,7 +7,7 @@ const BackButton = () => {
   return (
     <div className="mb-2">
       <Button onClick={() => router.back()} variant="ghost">
-        <ArrowLeft size={16} />
+        <ArrowLeft size={18} />
       </Button>
     </div>
   );
