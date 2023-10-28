@@ -246,6 +246,59 @@ const RoomAdmin = ({
       </li>
     );
   });
+
+  //ui starts here
+  const EditRoomInfoForm = () => {
+    return (
+      <form className="grid space-y-2 mt-4" onSubmit={handleRoomUpdate}>
+        <Input
+          type="text"
+          placeholder="Room Name"
+          value={roomName}
+          onChange={(e) => setRoomName(e.target.value)}
+          required
+        />
+        <Input
+          type="text"
+          placeholder="Room Section"
+          value={roomSection}
+          onChange={(e) => setRoomSection(e.target.value)}
+          required
+        />
+        <Button disabled={loading}>Apply Changes</Button>
+      </form>
+    );
+  };
+  const ToogleRoomInfo = () => {
+    return (
+      <>
+        <div className="flex justify-between items-center mt-4 ">
+          <Label htmlFor="approval" className="text-base font-medium">
+            Approval
+          </Label>
+          <Switch
+            id="approval"
+            checked={approval}
+            onCheckedChange={handleJoinApproval}
+            disabled={loading}
+            title="User Join Approval"
+            aria-label="Toggle approval for user"
+          />
+        </div>
+        <div className="flex justify-between items-center mt-4 ">
+          <Label htmlFor="student-can-post" className="text-base font-medium">
+            Students Can Post
+          </Label>
+          <Switch
+            id="student-can-post"
+            checked={studentCanPostChecked}
+            onCheckedChange={toggleStudentRole}
+            disabled={loading}
+          />
+        </div>
+      </>
+    );
+  };
   return (
     <div className="mt-8">
       <h2 className="font-medium flex items-center gap-x-2">
@@ -272,47 +325,9 @@ const RoomAdmin = ({
           </CollapsibleContent>
         </Collapsible>
       </div>
-      <form className="grid space-y-2 mt-4" onSubmit={handleRoomUpdate}>
-        <Input
-          type="text"
-          placeholder="Room Name"
-          value={roomName}
-          onChange={(e) => setRoomName(e.target.value)}
-          required
-        />
-        <Input
-          type="text"
-          placeholder="Room Section"
-          value={roomSection}
-          onChange={(e) => setRoomSection(e.target.value)}
-          required
-        />
-        <Button disabled={loading}>Apply Changes</Button>
-      </form>
-      <div className="flex justify-between items-center mt-4 ">
-        <Label htmlFor="approval" className="text-base font-medium">
-          Approval
-        </Label>
-        <Switch
-          id="approval"
-          checked={approval}
-          onCheckedChange={handleJoinApproval}
-          disabled={loading}
-          title="User Join Approval"
-          aria-label="Toggle approval for user"
-        />
-      </div>
-      <div className="flex justify-between items-center mt-4 ">
-        <Label htmlFor="student-can-post" className="text-base font-medium">
-          Students Can Post
-        </Label>
-        <Switch
-          id="student-can-post"
-          checked={studentCanPostChecked}
-          onCheckedChange={toggleStudentRole}
-          disabled={loading}
-        />
-      </div>
+      <EditRoomInfoForm />
+
+      <ToogleRoomInfo />
       <div className="mt-4 border border-slate-200 px-2 py-4 rounded-md">
         <AlertDialog>
           <AlertDialogTrigger className="bg-red-600 hover:opacity-90 font-medium w-full mt-2 text-white rounded-md block p-2">

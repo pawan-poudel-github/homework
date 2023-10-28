@@ -9,7 +9,12 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FileIcon, defaultStyles } from "react-file-icon";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Assignment - Homework",
+  description: "View or manage assignment.",
+};
 const page = async ({
   searchParams,
   params,
@@ -45,6 +50,7 @@ const page = async ({
     },
     include: {
       user: true,
+      room: true,
     },
   });
   if (!assignment) {
@@ -103,6 +109,9 @@ const page = async ({
       </section>
     );
   });
+  const canMoifyAssignment =
+    assignment.user.id == session?.user.id ||
+    assignment.room.adminId == session?.user.id;
   return (
     <div className="container relative mt-24 md:px-28">
       <div>
@@ -119,7 +128,7 @@ const page = async ({
             <p className="text-xs italic">
               {assignment?.created_at.toDateString()}
             </p>
-            {assignment.user.id == session?.user.id && (
+            {canMoifyAssignment && (
               <div className="space-x-2">
                 <EditAssignment
                   title={assignment.title}

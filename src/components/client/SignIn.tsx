@@ -1,5 +1,4 @@
 "use client";
-
 import Toast from "awesome-toast-component";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -9,9 +8,7 @@ const SignIn = () => {
     setLoading(true);
     new Toast("Redirecting to " + method + "...");
     try {
-      await signIn(method, {
-        redirect: true,
-      });
+      await signIn(method);
     } catch (error) {
       new Toast("Can't process, try again later.", {
         style: {

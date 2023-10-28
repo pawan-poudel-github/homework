@@ -36,6 +36,9 @@ export const POST = async (
       where: {
         id: assgId,
       },
+      include: {
+        room: true,
+      },
     });
     if (!assignment) {
       return NextResponse.json(
@@ -46,7 +49,10 @@ export const POST = async (
         { status: 400 }
       );
     }
-    if (!(assignment.userId == session.user.id)) {
+    const canDeleteAssignment =
+      assignment.userId == session.user.id ||
+      assignment.room.adminId == session.user.id;
+    if (!canDeleteAssignment) {
       return NextResponse.json(
         {
           success: false,

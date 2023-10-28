@@ -4,8 +4,13 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Join new Room - Homework",
+  description: "Join a room via link.",
+};
 const page = async ({ params }: { params: { code: string } }) => {
   const { code } = params;
 

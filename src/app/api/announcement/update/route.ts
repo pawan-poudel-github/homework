@@ -38,6 +38,9 @@ export const POST = async (
       where: {
         id: assgId,
       },
+      include: {
+        room: true,
+      },
     });
     if (!assignment) {
       return NextResponse.json(
@@ -46,6 +49,19 @@ export const POST = async (
           message: "Cannot find assignment.",
         },
         { status: 200 }
+      );
+    }
+
+    const canUpdateAssignment =
+      assignment.userId == session.user.id ||
+      assignment.room.adminId == session.user.id;
+    if (!canUpdateAssignment) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Your are not authorized to perform this.",
+        },
+        { status: 401 }
       );
     }
     await db.assignment.update({
