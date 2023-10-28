@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Join new Room - Homework",
-  description: "Join a room via link.",
+  description: "You are invited to join new room.",
 };
 const page = async ({ params }: { params: { code: string } }) => {
   const { code } = params;
@@ -54,9 +54,4 @@ const page = async ({ params }: { params: { code: string } }) => {
 };
 
 export default page;
-export async function generateMetadata() {
-  return {
-    title: "Join Room",
-    description: "You are invided to join a new classroom.",
-  };
-}
+
