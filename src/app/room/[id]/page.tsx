@@ -8,6 +8,12 @@ import { getServerSession } from "next-auth";
 import { LogIn, Radio } from "lucide-react";
 import { notFound } from "next/navigation";
 import Room from "@/components/server/Room";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Assignments",
+  description: "View new assignments.",
+};
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const session = await getServerSession(authOptions);
