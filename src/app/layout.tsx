@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "Manage student assignments with homework app.",
   themeColor: "#007991",
 };
-
+import NextTopLoader from "nextjs-toploader";
 export default function RootLayout({
   children,
 }: {
@@ -23,7 +23,9 @@ export default function RootLayout({
         name="google-site-verification"
         content="bRqRTz-O0zDpWLJIvjjckmVbgxMItCfiJNUICNe-GT0"
       />
+
       <body className={montserrat.className}>
+        <NextTopLoader color="#007991"/>
         <Navbar />
         <EdgeStoreProvider>{children}</EdgeStoreProvider>
       </body>
