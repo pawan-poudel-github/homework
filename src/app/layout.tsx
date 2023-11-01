@@ -25,7 +25,7 @@ export default function RootLayout({
       />
 
       <body className={montserrat.className}>
-        <NextTopLoader color="#007991"/>
+        <NextTopLoader color="#007991" showSpinner={false}/>
         <Navbar />
         <EdgeStoreProvider>{children}</EdgeStoreProvider>
       </body>
