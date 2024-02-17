@@ -1,20 +1,22 @@
 "use client";
-import { AssignmentPost, AssignmentWithUser } from "@/types/Room";
-import Toast from "awesome-toast-component";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import Toast from "awesome-toast-component";
 import PostSkeleon from "../server/PostSkeleon";
 import { pusherClient } from "@/lib/pusher";
+import { AssignmentPost, AssignmentWithUser } from "@/types/Room";
 
 const RoomPosts = ({ roomId }: { roomId: string }) => {
   const [posts, setPosts] = useState<AssignmentWithUser[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+
   useEffect(() => {
     const fetchPost = async () => {
+      if (loading) return;
       setLoading(true);
       try {
         const { data }: { data: AssignmentPost } = await axios.post(
@@ -26,11 +28,7 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
         );
         if (data.success) {
           setTotalPage(data.totalPages as number);
-
-          //to prevent from duplicate posts-if any
-          const uniquePosts = new Set([...posts, ...(data.posts || [])]);
-
-          setPosts(Array.from(uniquePosts));
+          setPosts((prevPosts) => [...prevPosts, ...(data.posts || [])]);
         } else {
           new Toast(data.message, {
             style: {
@@ -53,20 +51,15 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
       }
     };
     fetchPost();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, roomId]);
+  }, [page, roomId, loading]);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-    // decrease 100 from document height to make sure it works with mobile devices
-      if (!loading && scrollPosition + windowHeight >= documentHeight-100) {
-        if (page < totalPage) {
-          setPage((prev) => prev + 1);
-        }
+      if (!loading && scrollPosition + windowHeight >= documentHeight - 100 && page < totalPage) {
+        setPage((prev) => prev + 1);
       }
     };
 
@@ -75,7 +68,7 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [totalPage, page]);
+  }, [loading, totalPage, page]);
 
   useEffect(() => {
     const handleNewPost = (data: AssignmentWithUser) => {
@@ -89,43 +82,37 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
       pusherClient.unsubscribe(roomId);
       pusherClient.unbind("newpost", handleNewPost);
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  let postsElement = posts.map((post, index) => {
-    return (
-      <Link
-        key={index}
-        passHref
-        href={"assignment/" + post.id + "?roomid=" + roomId}
-        className="block mt-6 py-4 px-3 shadow-sm rounded-lg border border-gray-200"
-      >
-        <div className="flex items-center gap-x-4">
-          <Image
-            className="rounded-full block"
-            width={35}
-            height={35}
-            src={post.user.image!}
-            alt={post.user.name}
-          />
-          <div>
-            <p className="text-sm">{post.user.name}</p>
-            <i className="text-xs block">
-              {new Date(post.created_at.toLocaleString()).toDateString()}
-            </i>
-          </div>
-        </div>
-        <div className="mt-2 ml-12">
-          <p className="font-medium">{post.title}</p>
-        </div>
-      </Link>
-    );
-  });
+  }, [roomId]);
 
   return (
     <div>
-      {posts.length > 0 && <>{postsElement}</>}
+      {posts.length > 0 && posts.map((post, index) => (
+        <Link
+          key={index}
+          passHref
+          href={"assignment/" + post.id + "?roomid=" + roomId}
+          className="block mt-6 py-4 px-3 shadow-sm rounded-lg border border-gray-200"
+        >
+          <div className="flex items-center gap-x-4">
+            <Image
+              className="rounded-full block"
+              width={35}
+              height={35}
+              src={post.user.image!}
+              alt={post.user.name}
+            />
+            <div>
+              <p className="text-sm">{post.user.name}</p>
+              <i className="text-xs block">
+                {new Date(post.created_at).toDateString()}
+              </i>
+            </div>
+          </div>
+          <div className="mt-2 ml-12">
+            <p className="font-medium">{post.title}</p>
+          </div>
+        </Link>
+      ))}
       {loading && <PostSkeleon />}
       {!loading && (
         <p className="text-sm text-center italic my-2">No more posts.</p>
