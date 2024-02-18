@@ -15,7 +15,7 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
   const [totalPage, setTotalPage] = useState(1);
   useEffect(() => {
     const fetchPost = async () => {
-      if(loading) return;
+     
       setLoading(true);
       try {
         const { data }: { data: AssignmentPost } = await axios.post(
@@ -53,7 +53,10 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
         setLoading(false);
       }
     };
-    fetchPost();
+    if(!loading){
+       fetchPost();
+    }
+   
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, roomId]);
@@ -65,7 +68,7 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
       const documentHeight = document.documentElement.scrollHeight;
     // decrease 100 from document height to make sure it works with mobile devices
       if (scrollPosition + windowHeight >= documentHeight-100) {
-        if (page < totalPage) {
+        if (page <= totalPage) {
           setPage((prev) => prev + 1);
         }
       }
