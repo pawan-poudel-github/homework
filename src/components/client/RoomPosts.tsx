@@ -59,7 +59,7 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-      if (!loading && scrollPosition + windowHeight >= documentHeight - 100 && page < totalPage) {
+      if (scrollPosition + windowHeight >= documentHeight - 100 && page < totalPage) {
         setPage((prev) => prev + 1);
       }
     };
