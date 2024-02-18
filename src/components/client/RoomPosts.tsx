@@ -51,7 +51,8 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
       }
     };
     fetchPost();
-  }, [page, roomId, loading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, roomId]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,7 +69,8 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [loading, totalPage, page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalPage, page]);
 
   useEffect(() => {
     const handleNewPost = (data: AssignmentWithUser) => {
@@ -82,7 +84,8 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
       pusherClient.unsubscribe(roomId);
       pusherClient.unbind("newpost", handleNewPost);
     };
-  }, [roomId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
