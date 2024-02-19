@@ -128,13 +128,13 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
   });
 
   return (
-    <div>
+    <>
       {posts.length > 0 && <>{postsElement}</>}
       {loading && <PostSkeleon />}
       {!loading && (
         <p className="text-sm text-center italic my-2">No more posts.</p>
       )}
-    </div>
+    </>
   );
 };
 
