@@ -59,9 +59,9 @@ const page = async ({ params }: { params: { id: string } }) => {
       </div>
       {userAllowedToPost && <Announce roomId={id} />}
 
-      <div className="mt-6">
+      <main className="mt-6">
         <RoomPosts roomId={id} />
-      </div>
+      </main>
     </section>
   );
 };
