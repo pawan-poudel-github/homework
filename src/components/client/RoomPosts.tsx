@@ -67,7 +67,7 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
     
     
       if (scrollTop+clientHeight >= scrollHeight-50 && !loading) {
-        if (page < totalPage) {
+        if (page <= totalPage) {
           setPage((prev) => prev + 1);
         }
       }
