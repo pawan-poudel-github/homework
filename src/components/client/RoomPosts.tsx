@@ -63,11 +63,12 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
 
   useEffect(() => {
     const handleScroll = () => {
+      const {scrollTop,clientHeight,scrollHeight} = document.documentElement;
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
     // decrease 100 from document height to make sure it works with mobile devices
-      if (scrollPosition + windowHeight >= documentHeight-100) {
+      if (scrollTop+clientHeight >= scrollHeight-50 && !loading) {
         if (page <= totalPage) {
           setPage((prev) => prev + 1);
         }
@@ -126,6 +127,8 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
       </Link>
     );
   });
+console.log("totalPage":totalPage)
+console.log("page":page) 
 
   return (
     <>
