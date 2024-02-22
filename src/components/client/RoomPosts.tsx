@@ -125,8 +125,7 @@ const RoomPosts = ({ roomId }: { roomId: string }) => {
       </Link>
     );
   });
-console.log("totalPage: "+totalPage)
-console.log("page: "+page) 
+
 
   return (
     <>
